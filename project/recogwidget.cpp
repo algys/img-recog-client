@@ -13,6 +13,8 @@ RecogWidget::RecogWidget(ChildWidget *parent, MainWindow *_mainwindow):
     ChildWidget(parent), mainwindow(_mainwindow)
 {
     img_label = new QLabel("Img label");
+    img_label->setAlignment(Qt::AlignRight);
+    img_label->setFixedSize(600,450);
     set_button = new QPushButton("Start Recognition");
     img_timer = new QTimer(this);
     img_timer->setInterval(30);
@@ -34,6 +36,11 @@ RecogWidget::RecogWidget(ChildWidget *parent, MainWindow *_mainwindow):
 }
 
 RecogWidget::~RecogWidget(){
+    delete img_label;
+    delete img_timer;
+    delete set_button;
+    delete h_layout_1;
+    delete h_layout_2;
     delete v_layout;
 }
 
@@ -52,25 +59,30 @@ void RecogWidget::set_recog(){
 
 void RecogWidget::setContent(){
     recognition = false;
+    Mat frame;
+    for(int i=0; i<5; i++)
+        mainwindow->cam->operator >>(frame);
     set_recog();
 }
 
 void RecogWidget::start_stream(){
     Mat frame, curr;
     mainwindow->cam->operator >>(frame);
-
     if(recognition){
         cvtColor(frame, curr, CV_RGB2GRAY);
         Recog recog(mainwindow->catalog->get_captures(), curr);
         int id = -1;
         if((id = recog.tryrecog())!=-1){
             Object obj(recog.get_object());
+            /*
             line( frame, (obj.get_points())[0] , (obj.get_points())[1] , Scalar( 0, 255, 0), 2 );
             line( frame, (obj.get_points())[1] , (obj.get_points())[2] , Scalar( 0, 255, 0), 2 );
             line( frame, (obj.get_points())[2] , (obj.get_points())[3] , Scalar( 0, 255, 0), 2 );
             line( frame, (obj.get_points())[3] , (obj.get_points())[0] , Scalar( 0, 255, 0), 2 );
+            */
             set_recog();
             mainwindow->last_recognized->push_back(id);
+       //     for(int i=0; i<200; i++) mainwindow->cam->operator >>(frame);
             emit change_widget(1);
             return;
         }

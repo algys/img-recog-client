@@ -33,14 +33,15 @@ class Capture{
 
 class Data{
     public:
+        std::string name;
         std::string author;
         std::string year;
         std::string info;
         std::string path;
         //some code
     public:
-        Data(const std::string &_author = "", const std::string &_year = "", const std::string &_info = "", const std::string &_path = ""):
-            author(_author), year(_year), info(_info), path(_path) {};
+        Data(const std::string &_name = "", const std::string &_author = "", const std::string &_year = "", const std::string &_info = "", const std::string &_path = ""):
+            name(_name), author(_author), year(_year), info(_info), path(_path) {};
 };
 
 class Object{

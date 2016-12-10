@@ -31,7 +31,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     current_widget = 0;
     set_centr_widget(0);
-    setCentralWidget(current_widget);
 }
 
 MainWindow::~MainWindow(){

@@ -52,5 +52,11 @@ void InfoWidget::back_to_recog(){
 }
 
 InfoWidget::~InfoWidget(){
+    delete img_label;
+    delete back_button;
+    delete text_1;
+    delete text_2;
+    delete v_layout_1;
+    delete v_layout_2;
     delete h_layout_1;
 }
