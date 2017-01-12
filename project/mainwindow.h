@@ -15,7 +15,7 @@
 #include <QHash>
 
 #include "core.h"
-#include "recog.h"
+//#include "recog.h"
 #include "catalog.h"
 #include <list>
 #include "recogwidget.h"
@@ -36,8 +36,7 @@ public:
 
     Catalog *catalog;
     VideoCapture *cam;
-    std::list<int> *last_recognized;
-    ChildWidget *get_widget_by_id(int id);
+    std::list<Data> *last_recognized;
 
 private slots:
     void set_centr_widget(int widget_id);

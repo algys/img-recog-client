@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     widgets->operator [](0) = recog_widget;
     widgets->operator [](1) = info_widget;
 
-    last_recognized = new std::list<int>;
+    last_recognized = new std::list<Data>;
 //    connect(recog_widget, SIGNAL(change_widget(int)), SLOT(set_centr_widget(int)));
 //    connect(info_widget, SIGNAL(change_widget(int)), SLOT(set_centr_widget(int)));
 
@@ -52,7 +52,4 @@ void MainWindow::set_centr_widget(int widget_id){
     current_widget->setContent();
     connect(current_widget, SIGNAL(change_widget(int)), SLOT(set_centr_widget(int)));
     setCentralWidget(current_widget);
-}
-
-ChildWidget* MainWindow::get_widget_by_id(int id){
 }

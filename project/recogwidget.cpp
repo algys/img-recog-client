@@ -1,4 +1,5 @@
 #include "recogwidget.h"
+#include "reciever.h"
 
 QImage RecogWidget::cvMatToQImage(const cv::Mat &inMat){
     QImage image( inMat.data,
@@ -65,24 +66,28 @@ void RecogWidget::setContent(){
     set_recog();
 }
 
+
 void RecogWidget::start_stream(){
     Mat frame, curr;
+    Reciever reciev;
     mainwindow->cam->operator >>(frame);
     if(recognition){
+        Data *img;
+        Mat test(480,640,CV_8U);
+
         cvtColor(frame, curr, CV_RGB2GRAY);
-        Recog recog(mainwindow->catalog->get_captures(), curr);
-        int id = -1;
-        if((id = recog.tryrecog())!=-1){
-            Object obj(recog.get_object());
-            /*
-            line( frame, (obj.get_points())[0] , (obj.get_points())[1] , Scalar( 0, 255, 0), 2 );
-            line( frame, (obj.get_points())[1] , (obj.get_points())[2] , Scalar( 0, 255, 0), 2 );
-            line( frame, (obj.get_points())[2] , (obj.get_points())[3] , Scalar( 0, 255, 0), 2 );
-            line( frame, (obj.get_points())[3] , (obj.get_points())[0] , Scalar( 0, 255, 0), 2 );
-            */
+
+        for(int i=0; i<480*640; i++)
+            test.data[i] = curr.data[i];
+        imshow("test", test);
+
+        if(reciev.is_free()){
+            reciev.set_frame(curr);
+        }
+        if((img = reciev.tryget())){
             set_recog();
-            mainwindow->last_recognized->push_back(id);
-       //     for(int i=0; i<200; i++) mainwindow->cam->operator >>(frame);
+            mainwindow->last_recognized->push_back(*img);
+            delete img;
             emit change_widget(1);
             return;
         }

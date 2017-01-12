@@ -13,10 +13,7 @@
 #include <QTextBrowser>
 #include <QScrollArea>
 
-#include "core.h"
-#include "recog.h"
-#include "catalog.h"
-#include <list>
+#include "reciever.h"
 
 #include "mainwindow.h"
 #include "childwidget.h"

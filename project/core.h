@@ -68,4 +68,8 @@ class Object{
 typedef std::map<int, Capture> DictCaptures;
 typedef std::map<int, Data> DictData;
 
+//Data *recog;
+//std::mutex recog_mutex;
+
+
 #endif // CORE_H

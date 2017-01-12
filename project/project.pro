@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     recog.cpp \
     recogwidget.cpp \
     infowidget.cpp \
-    childwidget.cpp
+    childwidget.cpp \
+    reciever.cpp
 
 HEADERS  += mainwindow.h \
     catalog.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     recog.h \
     recogwidget.h \
     infowidget.h \
-    childwidget.h
+    childwidget.h \
+    reciever.h
 
 
 LIBS += /usr/lib/libopencv_core.so \
@@ -39,3 +41,5 @@ LIBS += /usr/lib/libopencv_core.so \
     /usr/lib/libopencv_imgproc.so \
     /usr/lib/libopencv_legacy.so \
     /usr/lib/libopencv_nonfree.so
+
+CONFIG += c++11

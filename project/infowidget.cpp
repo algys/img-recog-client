@@ -29,12 +29,9 @@ InfoWidget::InfoWidget(ChildWidget *parent, class MainWindow *_mainwindow):
 }
 
 void InfoWidget::setContent(){
-    int img_id = mainwindow->last_recognized->back();
     QString text1;
     QString text2;
-
-    DictData dictdata = (mainwindow->catalog->get_data());
-    Data data = dictdata[img_id];
+    Data data = mainwindow->last_recognized->back();
 
     QImage img = QImage(QString::fromStdString(data.path));
     img = img.scaledToHeight(300,Qt::SmoothTransformation);
