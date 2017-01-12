@@ -28,9 +28,6 @@ public:
 
     void setContent();
 
-//signals:
-  //  void recognized(int id);
-
 private:
     QLabel *img_label;
     QVBoxLayout *v_layout;

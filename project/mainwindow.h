@@ -15,8 +15,6 @@
 #include <QHash>
 
 #include "core.h"
-//#include "recog.h"
-#include "catalog.h"
 #include <list>
 #include "recogwidget.h"
 #include "infowidget.h"
@@ -34,7 +32,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    Catalog *catalog;
     VideoCapture *cam;
     std::list<Data> *last_recognized;
 

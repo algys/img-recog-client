@@ -1,12 +1,5 @@
 #include "mainwindow.h"
-/*
-class WidgetContainer{
-    WidgetContainer(RecogWidget* _first, InfoWidget* _second):
-        first(_first), second(_second){
-    RecogWidget *first;
-    InfoWidget *second;
-}
-*/
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -17,17 +10,11 @@ MainWindow::MainWindow(QWidget *parent) :
     if(!(cam->isOpened())){
     }
 
-    catalog = new Catalog();
-    if(!(catalog->isOpened())){
-    }
-
     widgets = new std::map<int, ChildWidget* >;
     widgets->operator [](0) = recog_widget;
     widgets->operator [](1) = info_widget;
 
     last_recognized = new std::list<Data>;
-//    connect(recog_widget, SIGNAL(change_widget(int)), SLOT(set_centr_widget(int)));
-//    connect(info_widget, SIGNAL(change_widget(int)), SLOT(set_centr_widget(int)));
 
     current_widget = 0;
     set_centr_widget(0);

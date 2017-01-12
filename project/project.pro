@@ -14,18 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    catalog.cpp \
     core.cpp \
-    recog.cpp \
     recogwidget.cpp \
     infowidget.cpp \
     childwidget.cpp \
     reciever.cpp
 
 HEADERS  += mainwindow.h \
-    catalog.h \
     core.h \
-    recog.h \
     recogwidget.h \
     infowidget.h \
     childwidget.h \

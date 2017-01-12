@@ -14,8 +14,6 @@
 #include <QScrollArea>
 
 #include "core.h"
-#include "recog.h"
-#include "catalog.h"
 #include <list>
 
 #include "mainwindow.h"

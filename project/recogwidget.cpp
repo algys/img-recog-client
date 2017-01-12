@@ -73,13 +73,8 @@ void RecogWidget::start_stream(){
     mainwindow->cam->operator >>(frame);
     if(recognition){
         Data *img;
-        Mat test(480,640,CV_8U);
 
         cvtColor(frame, curr, CV_RGB2GRAY);
-
-        for(int i=0; i<480*640; i++)
-            test.data[i] = curr.data[i];
-        imshow("test", test);
 
         if(reciev.is_free()){
             reciev.set_frame(curr);
