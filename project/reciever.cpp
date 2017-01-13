@@ -6,10 +6,8 @@ std::mutex recog_mutex;
 void error(const char *msg)
 {
     perror(msg);
-//    exit(1);
 }
 
-void
 
 Reciever::Reciever(Mat frame)
 {
