@@ -6,8 +6,10 @@ std::mutex recog_mutex;
 void error(const char *msg)
 {
     perror(msg);
-    exit(1);
+//    exit(1);
 }
+
+void
 
 Reciever::Reciever(Mat frame)
 {
@@ -45,8 +47,6 @@ void recognize(Mat frame){
     struct sockaddr_in serv_addr;
     struct hostent *server;
 
-    char buffer[256];
-
     portno = 8081;
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0)
@@ -65,20 +65,51 @@ void recognize(Mat frame){
     if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0)
         error("ERROR connecting");
 
-    printf("Please enter the message: ");
-    bzero(buffer,256);
- //   bcopy(reinterpret_cast<void*>(&frame), reinterpret_cast<void*>(buffer), sizeof(frame));
 
-    n = write(sockfd,reinterpret_cast<void*>(&frame),sizeof(frame));
+    n = write(sockfd,reinterpret_cast<void*>(frame.data),480*640);
 
     if (n < 0)
         error("ERROR writing to socket");
-    bzero(buffer,256);
 
+
+    char buf[1024];
+    bzero(buf, sizeof(buf));
+    n = recv(sockfd,reinterpret_cast<void*>(buf),256,MSG_WAITALL);
+    if (n < 0 || n == 1){
+        close(sockfd);
+        recog_mutex.unlock();
+        return;
+    }
     recog = new Data;
-    n = read(sockfd,reinterpret_cast<void*>(&recog),12400);
-    if (n < 0)
-        error("ERROR reading from socket");
+    recog->author=buf;
+
+    bzero(buf, sizeof(buf));
+    n = recv(sockfd,reinterpret_cast<void*>(buf),1024,MSG_WAITALL);
+    if (n < 0){
+        error("ERROR reading info from socket");
+    }
+    recog->info=buf;
+
+    bzero(buf, sizeof(buf));
+    n = recv(sockfd,reinterpret_cast<void*>(buf),256,MSG_WAITALL);
+    if (n < 0){
+        error("ERROR reading name from socket");
+    }
+    recog->name=buf;
+
+    bzero(buf, sizeof(buf));
+    n = recv(sockfd,reinterpret_cast<void*>(buf),256,MSG_WAITALL);
+    if (n < 0){
+        error("ERROR reading path from socket");
+    }
+    recog->path=buf;
+
+    bzero(buf, sizeof(buf));
+    n = recv(sockfd,reinterpret_cast<void*>(buf),256,MSG_WAITALL);
+    if (n < 0){
+        error("ERROR reading year from socket");
+    }
+    recog->year=buf;
 
     close(sockfd);
     recog_mutex.unlock();

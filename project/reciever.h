@@ -15,7 +15,6 @@
 #include <netdb.h>
 
 
-
 class Reciever
 {
 public:
